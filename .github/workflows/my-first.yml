@@ -75,47 +75,30 @@ jobs:
         run: docker compose up -d
       - name: stop docker compose
         run: docker compose down
-  name: Terraform Pipeline
-
-on:
-  push:
-    branches:
-      - main
-
-jobs:
   terraform:
-    name: Terraform
+    name: terraform
     runs-on: ubuntu-latest
-
     defaults:
       run:
         working-directory: terraform
-
     steps:
-      - name: Checkout Repository
+      - name: Checkout Repo
         uses: actions/checkout@v4
-
-      - name: Setup Terraform
-        uses: hashicorp/setup-terraform@v4
-
+      - name: terraform setup
+        uses: hashicorp/setup-terraform@v3
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
-
-      - name: Terraform Init
+      - name: terraform init
         run: terraform init
-
-      - name: Terraform Validate
-        run: terraform validate
-
-      - name: Terraform Plan
+      - name: terrafor formet checker
+        run: terraform fmt -check
+      - name: terraform plan check
         run: terraform plan
+      - name: terraform apply
+        run: terraform apply
+        
 
-      - name: Terraform Apply
-        run: terraform apply -auto-approve
-
-      - name: Terraform Destroy
-        run: terraform destroy -auto-approve
