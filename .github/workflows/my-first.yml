@@ -94,8 +94,8 @@ jobs:
           aws-region: us-east-1
       - name: terraform init
         run: terraform init
-      - name: terrafor formet checker
-        run: terraform fmt -check
+      - name: terraform validate
+        run: terraform validate
       - name: terraform plan check
         run: terraform plan
       - name: terraform apply
