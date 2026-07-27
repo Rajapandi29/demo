@@ -83,9 +83,9 @@ jobs:
         working-directory: terraform
     steps:
       - name: Checkout Repo
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: terraform setup
-        uses: hashicorp/setup-terraform@v3
+        uses: hashicorp/setup-terraform@v4
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
@@ -95,7 +95,7 @@ jobs:
       - name: terraform init
         run: terraform init
       - name: terraform plan check
-        run: terraform plan25
+        run: terraform plan
       - name: terraform apply
         run: terraform apply
       - name: terraform destroy
